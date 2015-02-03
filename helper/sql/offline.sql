@@ -7,5 +7,5 @@ CREATE TABLE `offline_message` (
     `from_uuid`     varchar(36) NOT NULL,
     `message`       text NOT NULL,
     KEY `to_uuid` (`to_uuid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
     

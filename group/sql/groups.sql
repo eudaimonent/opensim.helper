@@ -20,7 +20,7 @@ CREATE TABLE `osagent` (
   `AgentID` varchar(128) NOT NULL default '',
   `ActiveGroupID` varchar(128) NOT NULL default '',
   PRIMARY KEY  (`AgentID`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -43,7 +43,7 @@ CREATE TABLE `osgroup` (
   PRIMARY KEY  (`GroupID`),
   UNIQUE KEY `Name` (`Name`),
   FULLTEXT KEY `Name_2` (`Name`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE `osgroupinvite` (
   `TMStamp` timestamp NOT NULL,
   PRIMARY KEY  (`InviteID`),
   UNIQUE KEY `GroupID` (`GroupID`,`RoleID`,`AgentID`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `osgroupmembership` (
   `ListInProfile` int(11) NOT NULL default '1',
   `AcceptNotices` int(11) NOT NULL default '1',
   PRIMARY KEY  (`GroupID`,`AgentID`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE `osgroupnotice` (
   `BinaryBucket` text NOT NULL,
   PRIMARY KEY  (`GroupID`,`NoticeID`),
   KEY `Timestamp` (`Timestamp`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ CREATE TABLE `osgrouprolemembership` (
   `RoleID` varchar(128) NOT NULL default '',
   `AgentID` varchar(128) NOT NULL default '',
   PRIMARY KEY  (`GroupID`,`RoleID`,`AgentID`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -122,4 +122,4 @@ CREATE TABLE `osrole` (
   `Title` varchar(255) NOT NULL default '',
   `Powers` bigint(20) unsigned NOT NULL default '0',
   PRIMARY KEY  (`GroupID`,`RoleID`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;

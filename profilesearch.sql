@@ -199,7 +199,7 @@ CREATE TABLE `usernotes` (
   `notes`           text NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY  `useruuid` (`useruuid`, `targetuuid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 
 
@@ -218,7 +218,7 @@ CREATE TABLE `userpicks` (
   `sortorder` 		int(2) NOT NULL,
   `enabled` 		enum('true','false') NOT NULL,
   PRIMARY KEY (`pickuuid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 
 CREATE TABLE `userprofile` (
@@ -237,7 +237,7 @@ CREATE TABLE `userprofile` (
   `profileFirstImage` 	 varchar(36) NOT NULL,
   `profileFirstText` 	 text NOT NULL,
   PRIMARY KEY (`useruuid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 
 CREATE TABLE `usersettings` (
@@ -246,6 +246,6 @@ CREATE TABLE `usersettings` (
   `visible` 		enum('true','false') NOT NULL,
   `email` 			varchar(254) NOT NULL,
   PRIMARY KEY (`useruuid`)
-) TYPE=MyISAM;
+) ENGINE=MyISAM;
 
 
