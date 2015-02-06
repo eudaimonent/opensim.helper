@@ -14,9 +14,9 @@ require_once('./xmlgroups_config.php');
 
 
 if ($useMySQLi) {
-	include(ENV_HELPER_PATH.'/xmlrpci.php');
+	include('./xmlrpci.php');
 }
 else {
-	include(ENV_HELPER_PATH.'/xmlrpc.php');
+	include('./xmlrpc.php');
 }
 
