@@ -660,7 +660,7 @@ function avatar_properties_request($method_name, $params, $app_data)
 
 			$userFlags = 0;
 			if ($row['profileAllowPublish']==0x01)  $userFlags |= 0x01;
-			if ($row['profileMaturePublish']==0x01 and !OPENSIM_PG_ONLY) $userFlags |= 0x02;
+			if ($row['profileMaturePublish']==0x01) $userFlags |= 0x02;
 
 			if ($utf8_encoding) {
 				$aboutText = base64_encode($aboutText);
@@ -721,7 +721,7 @@ function avatar_properties_update($method_name, $params, $app_data)
 	$ready 		= 0;
 
 	if ($userFlags&0x01) $publish = 0x01;
-	if ($userFlags&0x02 and !OPENSIM_PG_ONLY) $mature = 0x01;
+	if ($userFlags&0x02) $mature = 0x01;
 
 
 	// for OpenSim DB

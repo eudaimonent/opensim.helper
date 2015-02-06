@@ -68,15 +68,10 @@ function join_terms($glue, $terms, $add_paren)
 function process_region_type_flags($flags)
 {
 	$terms = array();
-
-	if (OPENSIM_PG_ONLY) {
-		$terms[] = "mature = 'PG'";
-	}
-	else {
-		if ($flags & 16777216) $terms[] = "mature = 'PG'"; 		//IncludePG (1 << 24)
-		if ($flags & 33554432) $terms[] = "mature = 'Mature'"; 	//IncludeMature (1 << 25)
-		if ($flags & 67108864) $terms[] = "mature = 'Adult'";	//IncludeAdult (1 << 26)
-	}
+	
+	if ($flags & 16777216) $terms[] = "mature = 'PG'"; 		//IncludePG (1 << 24)
+	if ($flags & 33554432) $terms[] = "mature = 'Mature'"; 	//IncludeMature (1 << 25)
+	if ($flags & 67108864) $terms[] = "mature = 'Adult'";	//IncludeAdult (1 << 26)
 
 	return join_terms(" OR ", $terms, True);
 }
@@ -184,7 +179,7 @@ function dir_popular_query($method_name, $params, $app_data)
 	$terms = array();
 
 	if ($flags&0x1000) $terms[] = "has_picture = 1"; 				// PicturesOnly (1 << 12)
-	if ($flags&0x0800 or OPENSIM_PG_ONLY) $terms[] = "mature = 0"; 	// PgSimsOnly (1 << 11)
+	if ($flags&0x0800) $terms[] = "mature = 0"; 	// PgSimsOnly (1 << 11)
 
 	$where = "";
 	if (count($terms) > 0) $where = " WHERE ".join_terms(" AND ", $terms, False);
@@ -359,14 +354,10 @@ function dir_events_query($method_name, $params, $app_data)
 	$terms[] = "dateUTC > ".$now;
 
 	// Type
-	if (OPENSIM_PG_ONLY) {
-		$type[] = "eventflags = 0";
-	}
-	else {
-		if ($flags & 16777216) $type[] = "eventflags = 0";	//IncludePG (1 << 24)
-		if ($flags & 33554432) $type[] = "eventflags = 1"; 	//IncludeMature (1 << 25)
-		if ($flags & 67108864) $type[] = "eventflags = 2"; 	//IncludeAdult (1 << 26)
-	}
+	if ($flags & 16777216) $type[] = "eventflags = 0";	//IncludePG (1 << 24)
+	if ($flags & 33554432) $type[] = "eventflags = 1"; 	//IncludeMature (1 << 25)
+	if ($flags & 67108864) $type[] = "eventflags = 2"; 	//IncludeAdult (1 << 26)
+	
 
 	$terms[] = join_terms(" OR ", $type, True);
 
@@ -451,15 +442,10 @@ function dir_classified_query ($method_name, $params, $app_data)
 
 	$terms = array();
 	
-	if (OPENSIM_PG_ONLY) {
-		$terms[] = "classifiedflags&2 = 0";
-	}
-	else {
-		if ($flags & 6) $terms[] = "classifiedflags&2 = 0"; 	//PG (1 << 2)
-		if ($flags & 8) $terms[] = "classifiedflags&2 <> 0"; 	//Mature (1 << 3)
-		//There is no bit for Adult in classifiedflags
-		//if ($flags & 64)$terms[] = "classifiedflags&? > 0"; 	//Adult (1 << 6)
-	}
+	if ($flags & 6) $terms[] = "classifiedflags&2 = 0"; 	//PG (1 << 2)
+	if ($flags & 8) $terms[] = "classifiedflags&2 <> 0"; 	//Mature (1 << 3)
+	//There is no bit for Adult in classifiedflags
+	//if ($flags & 64)$terms[] = "classifiedflags&? > 0"; 	//Adult (1 << 6)
 
 	$type 	  = "";
 	$category = "";
