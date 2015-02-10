@@ -725,8 +725,13 @@ function avatar_properties_update($method_name, $params, $app_data)
 
 
 	// for OpenSim DB
+	$OpenSimVersion = null;
+	$dbver = opensim_new_db();
+	if ($OpenSimVersion==null) $OpenSimVersion = opensim_get_db_version($dbver);
+	if ($OpenSimVersion==OPENSIM_V07 || $OpenSimVersion==OPENSIM_V06) {
 	$flags = (opensim_get_avatar_flags($uuid)&~0x03) | ($userFlags&0x03);
 	opensim_set_avatar_flags($uuid, $flags);
+	}
 
 	$query_str = 'SELECT COUNT(*) FROM '.PROFILE_USERPROFILE_TBL." WHERE useruuid='".$DbLink->escape($uuid)."'";
 	$DbLink->query($query_str);
